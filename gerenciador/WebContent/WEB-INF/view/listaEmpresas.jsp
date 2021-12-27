@@ -28,6 +28,7 @@
 			</li>
 		</c:forEach>
 	</ul>
+	<a href="/gerenciador/UnicaEntrada?acao=NovaEmpresaForm">adicionar empresa</a>
 	
 </body>
 </html>
