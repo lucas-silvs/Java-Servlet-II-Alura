@@ -11,6 +11,12 @@
 <title>Java Standard Taglib</title>
 </head>
 <body>
+	
+	<c:import url="logout-parcial.jsp" />
+	
+	Usuario Logado: ${usuarioLogado.login}
+	<br>
+	<br>
 
 	<c:if test="${not empty empresa}">
 		Empresa ${ empresa } cadastrada com sucesso!
@@ -29,6 +35,7 @@
 		</c:forEach>
 	</ul>
 	<a href="/gerenciador/UnicaEntrada?acao=NovaEmpresaForm">adicionar empresa</a>
+
 	
 </body>
 </html>

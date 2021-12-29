@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.alura.gerenciador.acoes.Acao;
 import br.com.alura.gerenciador.acoes.AlteraEmpresa;
@@ -26,24 +27,25 @@ import br.com.alura.gerenciador.modelo.Empresa;
 @WebServlet("/UnicaEntrada")
 public class UnicaEntrada extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UnicaEntrada() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		String paramAcao = request.getParameter("acao");
 		String nome = null;
 		String nomeClasse = "br.com.alura.gerenciador.acoes."+paramAcao;
 		Class classe = null;
 		Object obj = null;
+		
+		HttpSession sessao = request.getSession();
+		boolean usuarioNaoLogado=sessao.getAttribute("usuarioLogado")== null;
+		boolean ehUmaAcaoProtegida =   !(paramAcao.equals("Login") || paramAcao.equals("LoginForm"));
+										
+		if(ehUmaAcaoProtegida && usuarioNaoLogado) {
+			response.sendRedirect("UnicaEntrada?acao=LoginForm");
+			return;
+		}
+		
 		try {
 			classe = Class.forName(nomeClasse);
 			obj = classe.newInstance();
