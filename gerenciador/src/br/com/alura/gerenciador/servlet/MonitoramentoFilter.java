@@ -7,7 +7,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 
 /**
@@ -15,7 +14,15 @@ import javax.servlet.http.HttpFilter;
  */
 //@WebFilter("/UnicaEntrada")
 public class MonitoramentoFilter extends HttpFilter implements Filter {
-       
+	
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		
+	}
+	@Override
+	public void destroy() {
+	
+	} 
   
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		long antes = System.currentTimeMillis();
